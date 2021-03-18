@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Item from "./Item";
+import ListItem from "./ListItem";
 
 export const TodoApp = () => {
 	let [lista, setLista] = useState([]);
@@ -10,23 +12,16 @@ export const TodoApp = () => {
 		}
 	};
 
-	function delTarea(pos) {
+	const delTarea = pos => {
 		const tempList = [...lista];
 		tempList.splice(pos, 1);
 		setLista(tempList);
 
 		//console.log(lista);
-	}
+	};
 
 	const newList = lista.map((value, index) => (
-		<li className="list-group-item" key={index}>
-			{value}
-			<button
-				onClick={() => delTarea(index)}
-				className="btn btn-default btn-xs pull-right remove-item">
-				<i className="fas fa-trash-alt text-danger mx-2"></i>
-			</button>
-		</li>
+		<Item key={index} value={value} index={index} onClick={delTarea} />
 	));
 
 	return (
@@ -41,7 +36,7 @@ export const TodoApp = () => {
 							type="text"
 							placeholder="Add a thing"></input>
 						<br />
-						<ul className="list-group">{newList}</ul>
+						<ListItem list={newList} />
 					</div>
 				</div>
 			</div>
